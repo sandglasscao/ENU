@@ -1,0 +1,47 @@
+<div class="container">
+    <h1>Segment Maintenance</h1>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th align="center">User Type</th>
+            <th align="center">Allowed</th>
+            <th align="center"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let segment of segments">
+            <td align="left">{{ segment.userType }}</td>
+            <td align="left">{{ segment.scope }}</td>
+            <td align="left"><input type="button" value="-" (click)="delItem(segment)"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+
+
+    <button type="button" class="btn btn-warning" (click)="addSegment()"
+            [disabled]="!segment.userType || !segment.scope">
+        Add
+    </button>
+
+    <div>
+        <label for="userType">User Type: </label>
+        <input type="text" name="userty" required list="types"
+               [(ngModel)]="segment.userType"/>
+        <datalist id="types">
+            <option [value]="item.code"
+                    *ngFor="let item of userTypes"></option>
+        </datalist>
+
+        <label for="scope">Allowed Segment: </label>
+        <input type="text" name="scope" [(ngModel)]="segment.scope"
+               maxlength=5
+               required/>
+    </div>
+    <br>
+
+
+</div>
+

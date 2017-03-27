@@ -1,0 +1,14 @@
+*.pyc
+*.log
+static/node_modules/*
+static/orbit-root/*
+static/typings
+static/*.log
+static/app/js/*
+static/media/*
+metadata/migrations/0*
+userprofile/migrations/0*
+utility/migrations/0*
+operation/migrations/0*
+.idea/*
+

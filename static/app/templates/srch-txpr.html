@@ -1,0 +1,66 @@
+<div class="container">
+
+    <form class="form-horizontal " #taxpayerForm="ngForm">
+        <h2>Search Taxpayer</h2>
+        <hr>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Taxpayer:</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Name" autofocus
+                       maxLength=12
+                       [(ngModel)]="matching">
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-warning" type="button" (click)="search(matching)">Search</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <textarea class="form-control" rows=3 disabled>{{ example }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group" [hidden]="!taxpayers">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Seq</th>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Qualified</th>
+                    <th>StartDate</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <td>Total {{ count }} pages, the No. {{ pageNo }} page.</td>
+                    <td>
+                        <input type="button" class="btn btn-warning" value="Previous" (click)="paginate(previouspg)"
+                               [disabled]="!previouspg"/>
+                        <input type="button" class="btn btn-warning" value="Next" (click)="paginate(nextpg)"
+                               [disabled]="!nextpg"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+
+                <tbody>
+                <tr *ngFor="let taxpayer of taxpayers; let i=index">
+                    <td align="left">{{ i }}</td>
+                    <td align="left">{{ taxpayer.title }}</td>
+                    <td align="left">{{ taxpayer.taxpayerno }}</td>
+                    <td align="left">
+                        <label *ngIf="taxpayer.certified">Qualified</label>
+                        <label *ngIf="!taxpayer.certified">No qualified</label>
+                    </td>
+                    <td align="left">{{ taxpayer.created | date }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </form>
+</div>

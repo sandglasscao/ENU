@@ -1,0 +1,72 @@
+<div class="login-page">
+    <div class="login-form">
+
+        <form class="form-horizontal " (ngSubmit)="onSubmit()" #weidcodeForm="ngForm">
+            <h2>Nice Weidcode</h2>
+            <hr>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Search: </label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Enter partial nice weidcode" autofocus
+                           maxLength=12
+                           [(ngModel)]="matching">
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-warning" type="button" (click)="search(matching)">Search</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <textarea class="form-control" rows=3 placeholder="" disabled>Example</textarea>
+                </div>
+            </div>
+
+            <div class="form-group" [hidden]="!niceWeidcodes">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Weidcode</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td>Total {{ count }} Pages, the No {{ pageNo }} page.</td>
+                        <td>
+                            <input type="button" class="btn btn-warning" value="Previous" (click)="paginate(previouspg)"
+                                   [disabled]="!previouspg"/>
+                            <input type="button" class="btn btn-warning" value="Next" (click)="paginate(nextpg)"
+                                   [disabled]="!nextpg"/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    <tr *ngFor="let niceWeidcode of niceWeidcodes" (click)="onSelect(niceWeidcode)">
+                        <td align="left"><input type="radio" name="optradio"
+                                                [checked]="niceWeidcode==selectedWeidcode"
+                                                [disabled]="niceWeidcode.used">
+                        </td>
+                        <td align="left">{{ niceWeidcode.weidcode }}</td>
+                        <td align="left">{{ niceWeidcode.price }}</td>
+                        <td align="left"><label *ngIf="niceWeidcode.used">Used</label></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary" [disabled]="!isSelected"> Confirm </button>
+                    <button type="button" class="btn btn-warning" (click)="cancel()"> Cancel </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

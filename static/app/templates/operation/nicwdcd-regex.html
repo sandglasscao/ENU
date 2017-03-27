@@ -1,0 +1,46 @@
+<div class="container">
+    <h1>Nice Weidcode Rules</h1>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th align="center">User Type</th>
+            <th align="center">Rule</th>
+            <th align="center"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let regex of regexs">
+            <td align="left">{{ regex.userType }}</td>
+            <td align="left">{{ regex.regex }}</td>
+            <td align="left"><input type="button" value="-" (click)="delItem(regex)"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+
+
+    <button type="button" class="btn btn-warning" (click)="addRegex()"
+            [disabled]="!regex.userType || !regex.regex">
+        Add
+    </button>
+
+    <div>
+        <label for="userType">User Type: </label>
+        <input type="text" name="userty" required list="types"
+               [(ngModel)]="regex.userType"/>
+        <datalist id="types">
+            <option [value]="item.code"
+                    *ngFor="let item of userTypes"></option>
+        </datalist>
+
+        <label for="regex">Segment: </label>
+        <input type="text" name="regex" [(ngModel)]="regex.regex"
+               required/>
+    </div>
+    <br>
+
+
+</div>
+

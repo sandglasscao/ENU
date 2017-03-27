@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-9">
+            <span *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </span>
+        </div>
+        <h1>Taxpayer Maintenance</h1>
+        <hr>
+        <form class="form-horizontal " (ngSubmit)="onSubmit()" #myTaxpayerForm="ngForm">
+            <div class="form-group">
+                <div>
+                    <label class="control-label col-sm-3">*Taxpayer</label>
+                    <select [(ngModel)]="myTaxpayer.category">
+                        <option [value]="taxpayerType.code"
+                                *ngFor="let taxpayerType of taxpayerTypes">{{ taxpayerType.value }}
+                        </option>
+                    </select>
+                </div>
+                <br>
+
+                <div>
+                    <label class="control-label col-sm-3" for="title">Title</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="title" class="form-control" [(ngModel)]="myTaxpayer.title">
+                    </div>
+                    <div [hidden]="myTaxpayer.category!='1'">
+                        <label class="control-label col-sm-3" for="taxpayerno">Taxpayer No</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="taxpayerno" class="form-control"
+                                   [(ngModel)]="myTaxpayer.taxpayerno"
+                                   [required]="myTaxpayer.category =='1'">
+                        </div>
+                        <label class="control-label col-sm-3" for="phaddr">Address&Phone</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="phaddr" class="form-control" [(ngModel)]="myTaxpayer.phaddr">
+                        </div>
+                        <label class="control-label col-sm-3" for="bank">Bank&Account</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="bank" class="form-control" [(ngModel)]="myTaxpayer.bankacct">
+                        </div>
+                        <label class="control-label col-sm-3">Start Date</label>
+                        <div class="col-sm-8">
+                            <label class="control-label">{{ myTaxpayer.created | date }}</label>
+                        </div>
+                        <label class="control-label col-sm-3" for="invoicepic">Upload File</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" rows=5 disabled>{{ tips }}</textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="file" accept="image/*" name="invoicepic"
+                                   (change)="selectedPic()" (click)="error=null"/>
+                        </div>
+                        <br>
+
+                        <div [hidden]="!isSelected && !showPic">
+                            <div class="col-sm-offset-3 col-sm-2">
+                                <fieldset>
+                                    <legend>Tool Zone</legend>
+                                    <label>Lines</label>
+                                    <select [(ngModel)]="painter.lineWidth" (click)="setlineWidth()">
+                                        <option [value]="lineWidth.value"
+                                                *ngFor="let lineWidth of lineWidths">{{ lineWidth.name }}
+                                        </option>
+                                    </select>
+                                    <div id="btnClr" class="col-sm-1" (click)="refresh()">
+                                        <img src="/static/images/refresh.png" width="24" height="24">
+                                    </div>
+                                    <div id="btnRub" class="col-sm-1" (click)="erase()">
+                                        <img src="/static/images/rubber.png" width="24" height="24">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-sm-6">
+                                <canvas id="paintArea"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group" *ngIf="!isOptUrl">
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary" [disabled]="!myTaxpayer.category">Save</button>
+                    <button type="button" class="btn btn-warning" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

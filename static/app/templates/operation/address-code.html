@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <h1>Address Maintenance</h1>
+        <hr>
+        <form class="form-horizontal " #userForm="ngForm">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="addrfile">Select File: </label>
+                <input class="col-sm-4" type="file" name="addrfile" accept="text/csv" (change)="selectFile()"/>
+                <div class="form-group" [hidden]="!error">
+                    <span class="alert alert-danger">
+                        {{ error }}
+                    </span>
+                </div>
+
+                <button type="button" class="btn btn-primary" [disabled]="!selectedFile" (click)="save()">Upload</button>
+            </div>
+
+            <div>
+                <input type="url" [(ngModel)]="addrUrl"/>
+                <button type="button" class="btn btn-warning" (click)="refresh()">Update</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

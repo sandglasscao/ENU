@@ -1,0 +1,132 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <h1>Assembly list -- Initial single</h1>
+        <hr>
+        <form class="form-horizontal " (ngSubmit)="onSubmit()" #userForm="ngForm">
+            <div>
+                <label>Deliver</label>
+                <input type="text" placeholder="Name/Weidcode" [(ngModel)]="grossCheck.sender_unit">
+                <label>Contract No</label><input type="text" [(ngModel)]="grossCheck.contract_no">
+                <br>
+                <label>Recipent</label><input type="text" [(ngModel)]="grossCheck.recipient_unit">
+                <label>Shippment No</label><input type="text" [(ngModel)]="grossCheck.shippment_no">
+            </div>
+            <hr>
+
+            <div>
+
+                <fieldset>
+                    <legend>Initial consignment note</legend>
+                    <label>Dear Sir/Madam, thank you for choosing us, and your goods list is following:</label>
+                    <input type="file" name="chkfile"
+                           accept="text/csv,text/plain"
+                           (change)="selectFile()"/>
+                    <div [hidden]="!error">
+                        <span class="alert alert-danger">
+                            {{ error }}
+                        </span>
+
+                    </div>
+                    <input type="button" name="upload" value="导入" (click)="importItems()" [disabled]="!selectedFile"/>
+                    <br>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Seq</th>
+                            <th>Box No.</th>
+                            <th>Volume</th>
+                            <th>Weight</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td>Total: {{ count }} </td>
+                            <td>Weight: {{ weightTotal }} kg</td>
+                            <td>volume: {{ volumeTotal }} m³</td>
+                            <td></td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr *ngFor="let item of check_lst">
+                            <td align="left">{{ item.seq_no }}</td>
+                            <td align="left">{{ item.case_no }}</td>
+                            <td align="left">{{ item.volume }}</td>
+                            <td align="left">{{ item.weight }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Goods received
+                        <input type="button" (click)="addItem()" value="+" [disabled]="receipt_lst>=check_lst"/>
+                    </legend>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Box No.</th>
+                            <th>Description</th>
+                            <th>Upload Pic.</th>
+                            <th>Suggestion</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <td>Total: {{ count }} </td>
+                            <td>Appearance Damaged: {{ receipt_lst.length }} </td>
+                            <td>Appearance Intact: {{ count-receipt_lst.length }} </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr *ngFor="let item of receipt_lst">
+                            <td align="left"><input list="rec_items" [(ngModel)]="item.case_no"/></td>
+                            <td align="left"><input type="text" [(ngModel)]="item.desc"/></td>
+                            <td align="left">
+                                <input type="file" name="picfile" accept="image/*" (change)="selectPic(item)"/>
+                            <td align="left"><input type="text" [(ngModel)]="item.advice"/></td>
+                            <td align="left"><input type="button" value="-" (click)="delItem(item)"/></td>
+                        </tr>
+                        </tbody>
+                        <datalist id="rec_items">
+                            <option [value]="item.case_no"
+                                    *ngFor="let item of check_lst"></option>
+                        </datalist>
+                    </table>
+                    <hr>
+                </fieldset>
+            </div>
+
+            <div class="form-group col-sm-8">
+                <label>Deliver</label><input type="text" placeholder="Name/Weidcode" [(ngModel)]="grossCheck.sender">
+                <label>Recipient</label><input type="text" placeholder="Name/Weidcode" [(ngModel)]="grossCheck.recipient">
+                <label>Examiner</label><input type="text" placeholder="Name/Weidcode" [(ngModel)]="grossCheck.examiner">
+                <br>
+                <label>Delivery Date</label><input type="date" [(ngModel)]="grossCheck.delivery_date">
+                <label>Receipt Date</label><input type="date" [(ngModel)]="grossCheck.receipt_date">
+                <label>Inspect Date</label><input type="date" [(ngModel)]="grossCheck.inspect_date">
+            </div>
+            <hr>
+
+
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-warning"
+                            [disabled]="!userForm.form.valid ||
+                                        !grossCheck.sender_unit ||
+                                        !grossCheck.recipient_unit ||
+                                        !grossCheck.sender ||
+                                        !grossCheck.recipient"
+                    >Summit
+                    </button>
+                    <button type="reset" class="btn btn-warning" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

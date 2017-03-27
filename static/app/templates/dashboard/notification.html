@@ -1,0 +1,38 @@
+<div class="container">
+    <h1>Notification Center</h1>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th align="center">Title</th>
+            <th align="center">Summary</th>
+            <th align="center">Status</th>
+            <th align="center">Date</th>
+            <th align="center"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let notification of notifications">
+            <td align="left" (click)="detail(notification)">
+                <a>{{ notification.title }}</a>
+            </td>
+            <td align="left">{{ notification.content }}</td>
+            <td align="left">
+                <label *ngIf="notification.status">read</label>
+                <label *ngIf="!notification.status">not read</label>
+            <td align="left"><label>{{ notification.created | date}}</label></td>
+            <td align="left"><input type="button" value="X" (click)="delItem(notification)"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+
+    <div class="col-sm-12" *ngIf="selected">
+        <label>Title:  {{ selected.title }}</label>
+        <br>
+        <textarea class="form-control" rows=7 disabled>{{ selected.content }}</textarea>
+    </div>
+
+</div>
+

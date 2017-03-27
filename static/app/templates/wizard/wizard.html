@@ -1,0 +1,16 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-9 col-sm-offset-1 col-md-10 col-md-offset-2 main">
+            <h1>{{ current_title }}</h1>
+            <hr>
+            <div class="row placeholders">
+                <router-outlet></router-outlet>
+            </div>
+            <hr>
+            <button type="button" class="btn btn-default" [disabled]="isFirst" (click)="preStep()">Previous</button>
+            <button type="button" class="btn btn-default" (click)="nextStep()">Next</button>
+
+        </div>
+    </div>
+</div>

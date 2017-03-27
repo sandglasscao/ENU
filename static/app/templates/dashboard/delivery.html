@@ -1,0 +1,115 @@
+<div class="container" [hidden]="showGross" xmlns="http://www.w3.org/1999/html">
+    <div class="row">
+        <h1>Delivery</h1>
+        <hr>
+        <form class="form-horizontal" (ngSubmit)="onSubmit()" #userForm="ngForm">
+            <div>
+                <label for="wedicode">*Deliver: </label>
+                <input type="text" name="weidcode" placeholder="weidcode" required
+                       [(ngModel)]="freight.sender_weidcode">
+                <input type="button" value="Sender" (click)="search(freight.sender_weidcode, true)"
+                       [disabled]="!freight.sender_weidcode">
+
+                <label for="cell">Contact: </label>
+                <input type="text" name="cell" readonly required
+                       [(ngModel)]="freight.sender_cell">
+
+                <label for="address">Address: </label>
+                <input type="text" name="address" readonly required
+                       [(ngModel)]="freight.sender_address">
+                <br>
+
+                <label for="wedicode2">*Recipient: </label>
+                <input type="text" name="weidcode2" placeholder="weidcode" required
+                       [(ngModel)]="freight.recipient_weidcode">
+                <input type="button" value="Addressee" (click)="search(freight.recipient_weidcode, false)"
+                       [disabled]="!freight.recipient_weidcode">
+
+                <label for="cell2">Contact: </label>
+                <input type="text" name="cell2" readonly required
+                       [(ngModel)]="freight.recipient_cell">
+
+                <label for="address2">Address: </label>
+                <input type="text" name="address2" readonly required
+                       [(ngModel)]="freight.recipient_address">
+            </div>
+            <hr>
+
+            <div class="form-group col-sm-8">
+                <label class="col-sm-2">*Payment Method: </label>
+                <div class="col-sm-2" *ngFor="let paymode of paymodes" (click)="onSelect(paymode)">
+                    <label><input type="radio" name="paymode"> {{ paymode.value }} </label>
+                </div>
+                <input class="col-sm-2" type="text" name="paycard" placeholder="paycard"
+                       [(ngModel)]="freight.paycard">
+            </div>
+            <br>
+
+            <div class="form-group col-sm-10">
+                <label>*Value-added service: </label>
+                <label><input type="checkbox" [(ngModel)]="freight.hasCheck">Receipt</label>
+                <input type="button" value="GrossCheck" name="grossCheck" (click)="goGrossCheck()"
+                       [disabled]="!freight.hasCheck">
+                <input type="button" value="DetailCheck" name="detailCheck" (click)="goDetailCheck()"
+                       [disabled]="!freight.hasCheck">
+            </div>
+            <br>
+
+            <div class="form-group col-sm-10">
+                <label class="control-label">*Goods: </label>
+                <label><input type="text" [(ngModel)]="freight.manifest" placeholder="Item"></label>
+                <label><input type="text" [(ngModel)]="freight.count" placeholder="Amount"></label>
+                <label><input type="text" [(ngModel)]="freight.volume" placeholder="Volume"> m³ </label>
+                <label><input type="text" [(ngModel)]="freight.weight" placeholder="Weight"> kg </label>
+            </div>
+
+            <div class="form-group col-sm-8">
+                <label class="col-sm-2">*Delivery mode: </label>
+                <div class="col-sm-2" *ngFor="let method of methods" (click)="onSelect(method)">
+                    <label><input type="radio" name="method"> {{ method.value }} </label>
+                </div>
+
+
+                <div [hidden]="freight.delivery_method!=2">
+                    <label>*Choose Express</label>
+                    <select [(ngModel)]="freight.shipper_weidcode">
+                        <option [value]="shipper.username"
+                                *ngFor="let shipper of shippers">{{ shipper.username }}
+                            -- {{ shipper.first_name }}</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <br>
+
+            <div class="form-group col-sm-10">
+                <label>Remark:<input type="text" [(ngModel)]="freight.mark" placeholder="remark"></label>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-warning"
+                            [disabled]="!userForm.form.valid ||
+                                        !freight.sender_weidcode ||
+                                        !freight.sender_cell ||
+                                        !freight.sender_address ||
+                                        !freight.recipient_weidcode ||
+                                        !freight.recipient_cell ||
+                                        !freight.recipient_address ||
+                                        !freight.paymode ||
+                                        !freight.delivery_method ||
+                                        !freight.manifest "
+                    >Summit
+                    </button>
+                    <button type="reset" class="btn btn-warning" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<grss-chk [hidden]="!showGross" [show]="showGross" (changed)="changedGrossCheck($event)"></grss-chk>
+<detail-chk [hidden]="!showDetail" [show]="showDetail" (changed)="changedDetailCheck($event)"></detail-chk>

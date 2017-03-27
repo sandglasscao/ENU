@@ -1,0 +1,36 @@
+
+<div class="login-page">
+  <div class="form">
+    <form class="login-form "  (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <h1>Staff Login</h1>
+    <hr>     
+         <div class="form-group">
+          <input class="form-control"  type="text" placeholder="staff name" [(ngModel)]="credential.username" required autofocus
+            ngControl="wcode" #wcode="ngForm"
+          />
+
+        </div>
+         <div class="form-group">
+          <input class="form-control"  type="password" placeholder="password"  [(ngModel)]="credential.password" required
+            minLength=6 
+            maxLength=16   
+            ngControl="passwd" #passwd="ngForm"
+          />
+
+        </div>
+         <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block"  [disabled]="!userForm.form.valid" >Login</button>
+
+        </div>
+
+
+        <div class="form-group" [hidden]="!error">
+            <span  class="alert alert-danger">
+              {{error}}
+            </span>       
+
+        </div>           
+    </form>
+      
+  </div>
+</div>

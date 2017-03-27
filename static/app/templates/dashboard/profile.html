@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="row">
+        <h1>Profile Mantenance</h1>
+        <hr>
+        <form class="form-horizontal " (ngSubmit)="onSubmit()" #profileForm="ngForm">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ name2_lbl }}</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="model.name2">
+
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ name_lbl }}</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="model.name">
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ id_name_lbl }}</label>
+                <div *ngIf="isIndividual">
+                    <div class="col-sm-8">
+                        <select class="form-control" [(ngModel)]="model.idtype">
+                            <option *ngFor="let idtype of idtypes" [value]="idtype.code">{{ idtype.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf="isEnterprise">
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="model.idname">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ id_no_lbl }}</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" [(ngModel)]="model.idno">
+
+                </div>
+            </div>
+
+            <div *ngIf="isIndividual"><!--individual-->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">WeChat</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="model.individual.wechat">
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">QQ</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="model.individual.qq">
+
+                    </div>
+                </div>
+            </div><!--individual-->
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label"></label>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary" [disabled]="!profileForm.form.valid">Save</button>
+                    <button type="button" class="btn btn-warning" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                        <span class="col-sm-2" [hidden]="!isSuccess " class="alert alert-danger">
+                          Successful!
+                        </span>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
