@@ -18,6 +18,7 @@ from metadata.serializers import (
 from django.conf import settings
 from urllib import request as urq
 from bs4 import BeautifulSoup
+import numpy as np
 
 class RefreshAddrCode(ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -31,7 +32,6 @@ class RefreshAddrCode(ListCreateAPIView):
         self.__parse_html__(url, 1, levels, addrs)
         addrfile = open('/workspace/addrs.txt', 'w')
         print(addrs, file=addrfile)
-        a = 1
 
     def __read_html__(self, url):
         urlpre = url.replace(url.split('/')[-1], '')

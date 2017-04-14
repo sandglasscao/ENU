@@ -145,11 +145,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['OPENSHIFT_APP_NAME2'],
-            'USER': os.environ['OPENSHIFT_MYSQL_DB_USERNAME'],
-            'PASSWORD': os.environ['OPENSHIFT_MYSQL_DB_PASSWORD'],
-            'HOST': os.environ['OPENSHIFT_MYSQL_DB_HOST'],
-            'PORT': os.environ['OPENSHIFT_MYSQL_DB_PORT'],
+            'NAME': os.environ['APP_NAME2'],
+            'USER': os.environ['MYSQL_DB_USERNAME'],
+            'PASSWORD': os.environ['MYSQL_DB_PASSWORD'],
+            'HOST': os.environ['MYSQL_DB_HOST'],
+            'PORT': os.environ['MYSQL_DB_PORT'],
         }
     }
 # Internationalization
